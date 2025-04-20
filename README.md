@@ -48,6 +48,7 @@ helm upgrade -n grafana --create-namespace --install grafana grafana/grafana -f 
 
 ## Запускаем python-fast-slow в kubernetes
 ```shell
+kubectl create namespace pyroscope-ebpf
 kubectl apply -f kubernetes/python-fast-slow.yaml
 kubectl apply -f kubernetes/deployment.yaml
 kubectl apply -f kubernetes/service.yaml
