@@ -10,6 +10,7 @@ alloy:
         - SYS_RESOURCE
         - SYS_ADMIN
         - SYS_BPF
+        - NET_ADMIN
 
   configMap:
     create: true
@@ -24,19 +25,62 @@ alloy:
           field = "spec.nodeName=" + env("HOSTNAME")
           role = "pod"
         }
+        # Явные селекторы для Java и Python приложений
+        selectors {
+          field = "status.phase=Running"
+          label = "app in (java-fast-slow, python-fast-slow, cpu-stress)"
+          role = "pod"
+        }
         role = "pod"
       }
       
       pyroscope.ebpf "instance" {
         forward_to = [pyroscope.write.endpoint.receiver]
         targets = discovery.kubernetes.local_pods.targets
-        python_enabled = true
+        
+        java {
+          enabled = true
+          include_jvm_unknown = true
+        }
+        
+        python {
+          enabled = true
+          demangle = "simple"
+        }
+        
+        bpf {
+          cache_events_size = 1024
+          pid_cache_size = 1024
+          build_id_cache_size = 1024
+        }
+        
+        target {
+          service_name = "ebpf-profiling"
+          environment = "production"
+        }
       }
+      
       pyroscope.write "endpoint" {
         endpoint {
           url = "http://pyroscope.pyroscope:4040"
+          # Таймауты для надежности
+          timeout = "10s"
+          retries = 3
+          backoff_delay = "1s"
         }
+      }
+
+      prometheus.exporter.self "monitoring" {
+        scrape_interval = "30s"
+      }
+
+      prometheus.scrape "self" {
+        targets = prometheus.exporter.self.monitoring.targets
+        forward_to = [pyroscope.write.endpoint.receiver]
       }
   controller:
     hostPID: true
     privileged: true
+    # Дополнительные настройки для лучшей интеграции с eBPF
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
