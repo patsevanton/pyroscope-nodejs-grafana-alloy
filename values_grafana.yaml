@@ -1,0 +1,47 @@
+# Настройки окружения Grafana
+env:
+  # Устанавливаем плагин grafana-pyroscope-app при инициализации Grafana
+  GF_INSTALL_PLUGINS: grafana-pyroscope-app
+  
+  # Включаем анонимный доступ (для демонстрационных/тестовых сред)
+  GF_AUTH_ANONYMOUS_ENABLED: "true"
+  
+  # Устанавливаем роль анонимного пользователя как Admin (полный доступ)
+  GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+
+# Настройки Ingress для доступа к Grafana извне
+ingress:
+  # Включаем создание Ingress ресурса
+  enabled: true
+
+  # Указываем, что используем nginx ingress controller
+  ingressClassName: nginx
+
+  # Доменные имена, по которым будет доступна Grafana
+  hosts:
+    - grafana.apatsev.org.ru
+  
+  # Пути, по которым будет доступен сервис (корень домена)
+  paths:
+    - /
+
+# Конфигурация источников данных Grafana
+datasources:
+  # Файл конфигурации datasources.yaml
+  datasources.yaml:
+    # Версия API конфигурации
+    apiVersion: 1
+    
+    # Список источников данных
+    datasources:
+      # Конфигурация источника данных Pyroscope
+      - name: Grafana Pyroscope  # Отображаемое имя источника
+        type: grafana-pyroscope-datasource  # Тип источника данных
+        
+        # URL для подключения к серверу Pyroscope
+        # Формат: http://<service-name>.<namespace>:<port>
+        url: http://pyroscope.pyroscope:4040
+        
+        # Дополнительные параметры конфигурации
+        jsonData:
+          minStep: '15s'  # Минимальный интервал между точками данных (15 секунд)

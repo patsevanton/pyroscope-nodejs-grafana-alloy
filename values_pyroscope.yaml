@@ -1,0 +1,10 @@
+# Конфигурация Alloy
+alloy:
+  enabled: true  # Отключаем интеграцию с Alloy
+
+# Настройки Ingress для внешнего доступа
+ingress:
+  enabled: true    # Включаем Ingress контроллер
+  className: "nginx"  # Указываем использовать nginx ingress controller
+  hosts:
+    - pyroscope.apatsev.org.ru  # Доменное имя для доступа к Pyroscope
