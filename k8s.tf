@@ -28,7 +28,7 @@ resource "yandex_kubernetes_cluster" "pyroscope" {
   network_id = yandex_vpc_network.pyroscope.id  # Сеть, к которой подключается кластер
 
   master {
-    version = "1.30"  # Версия Kubernetes мастера
+    version = "1.31"  # Версия Kubernetes мастера
     zonal {
       zone      = yandex_vpc_subnet.pyroscope-a.zone  # Зона размещения мастера
       subnet_id = yandex_vpc_subnet.pyroscope-a.id     # Подсеть для мастера
@@ -52,11 +52,11 @@ resource "yandex_kubernetes_node_group" "k8s-node-group" {
   description = "Node group for the Managed Service for Kubernetes cluster"
   name        = "k8s-node-group"
   cluster_id  = yandex_kubernetes_cluster.pyroscope.id
-  version     = "1.30"  # Версия Kubernetes на нодах
+  version     = "1.31"  # Версия Kubernetes на нодах
 
   scale_policy {
     fixed_scale {
-      size = 3  # Фиксированное количество нод
+      size = 1  # Фиксированное количество нод
     }
   }
 
