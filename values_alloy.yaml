@@ -54,11 +54,6 @@ alloy:
           url = "http://pyroscope.pyroscope:4040"
         }
       }
-
-      prometheus.scrape "self" {
-        targets = prometheus.exporter.self.monitoring.targets
-        forward_to = [pyroscope.write.endpoint.receiver]
-      }
   controller:
     hostPID: true
     privileged: true
