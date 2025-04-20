@@ -55,10 +55,6 @@ alloy:
         }
       }
 
-      prometheus.exporter.self "monitoring" {
-        scrape_interval = "30s"
-      }
-
       prometheus.scrape "self" {
         targets = prometheus.exporter.self.monitoring.targets
         forward_to = [pyroscope.write.endpoint.receiver]
