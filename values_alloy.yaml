@@ -62,9 +62,6 @@ alloy:
       pyroscope.write "endpoint" {
         endpoint {
           url = "http://pyroscope.pyroscope:4040"
-          timeout = "10s"
-          retries = 3
-          backoff_delay = "1s"
         }
       }
 
