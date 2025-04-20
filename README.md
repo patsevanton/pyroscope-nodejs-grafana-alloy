@@ -50,6 +50,8 @@ helm upgrade -n grafana --create-namespace --install grafana grafana/grafana -f 
 ```shell
 kubectl create namespace pyroscope-ebpf
 kubectl apply -f kubernetes/python-fast-slow.yaml
+kubectl apply -f kubernetes/cpu-stress.yaml
+kubectl apply -f kubernetes/java-fast-slow.yaml
 kubectl apply -f kubernetes/deployment.yaml
 kubectl apply -f kubernetes/service.yaml
 kubectl apply -f kubernetes/ingress.yaml
