@@ -25,7 +25,6 @@ alloy:
           field = "spec.nodeName=" + env("HOSTNAME")
           role = "pod"
         }
-        # Явные селекторы для Java и Python приложений
         selectors {
           field = "status.phase=Running"
           label = "app in (java-fast-slow, python-fast-slow, cpu-stress)"
@@ -63,7 +62,6 @@ alloy:
       pyroscope.write "endpoint" {
         endpoint {
           url = "http://pyroscope.pyroscope:4040"
-          # Таймауты для надежности
           timeout = "10s"
           retries = 3
           backoff_delay = "1s"
@@ -81,6 +79,5 @@ alloy:
   controller:
     hostPID: true
     privileged: true
-    # Дополнительные настройки для лучшей интеграции с eBPF
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
