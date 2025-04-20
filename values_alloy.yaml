@@ -37,12 +37,6 @@ alloy:
         forward_to = [pyroscope.write.endpoint.receiver]
         targets = discovery.kubernetes.local_pods.targets
         
-        bpf {
-          cache_events_size = 1024
-          pid_cache_size = 1024
-          build_id_cache_size = 1024
-        }
-        
         target {
           service_name = "ebpf-profiling"
           environment = "production"
