@@ -3,6 +3,7 @@ alloy:
     privileged: true
     runAsGroup: 0
     runAsUser: 0
+    runAsNonRoot: false
     capabilities:
       add:
         - PERFMON
