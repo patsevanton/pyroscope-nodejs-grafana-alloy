@@ -21,7 +21,6 @@ alloy:
       
       discovery.kubernetes "local_pods" {
         selectors {
-          field = "spec.nodeName=" + env("HOSTNAME")
           role = "pod"
         }
         role = "pod"
