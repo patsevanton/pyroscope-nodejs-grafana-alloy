@@ -37,11 +37,6 @@ alloy:
         forward_to = [pyroscope.write.endpoint.receiver]
         targets = discovery.kubernetes.local_pods.targets
         
-        python {
-          enabled = true
-          demangle = "simple"
-        }
-        
         bpf {
           cache_events_size = 1024
           pid_cache_size = 1024
