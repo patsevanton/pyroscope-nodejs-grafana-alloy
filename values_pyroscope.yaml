@@ -1,8 +1,8 @@
 # Конфигурация Alloy
 alloy:
-  enabled: true  # Отключаем интеграцию с Alloy
+  enabled: false  # Отключаем интеграцию с Alloy
 
-# Настройки Ingress для внешнего доступа
+# Настройки Ingress для внешнего доступа к Pyroscope
 ingress:
   enabled: true    # Включаем Ingress контроллер
   className: "nginx"  # Указываем использовать nginx ingress controller

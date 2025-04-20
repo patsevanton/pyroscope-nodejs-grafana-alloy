@@ -1,0 +1,29 @@
+alloy:
+  securityContext:
+    privileged: true  # Разрешает привилегированный доступ для Alloy
+    runAsUser: 0      # Запуск от имени root-пользователя
+    runAsGroup: 0     # Группа root
+    fsGroup: 0        # Группа для файловой системы, также root
+
+  configMap:
+    create: true
+    content: |
+      discovery.kubernetes "local_pods" {
+        selectors {
+          field = "spec.nodeName=" + env("HOSTNAME")
+          role = "pod"
+        }
+        role = "pod"
+      }
+      pyroscope.ebpf "instance" {
+        forward_to = [pyroscope.write.endpoint.receiver]
+        targets = discovery.kubernetes.local_pods.targets
+      }
+      pyroscope.write "endpoint" {
+        endpoint {
+          url = "http://pyroscope.pyroscope:4040"
+        }
+      }
+  controller:
+    hostPID: true
+    privileged: true  # Разрешает доступ к PID namespace хоста
