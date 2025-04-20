@@ -1,4 +1,4 @@
-# Запуск pyroscope. Профилирование простого nodejs проекта без Grafana Alloy
+# Запуск pyroscope. Профилирование простого nodejs проекта c Grafana Alloy
 
 [Pyroscope](https://github.com/grafana/pyroscope) — это инструмент для непрерывного профилирования кода, который помогает находить узкие места в производительности приложений.
 
@@ -9,15 +9,9 @@
 - Позволяет сравнивать профили за разные периоды.
 - Используется для оптимизации производительности сервисов.
 
-В этом посте будет продемонстрирован запуск Pyroscope в docker-compose и в kubernetes.
+В этом посте будет продемонстрирован запуск Pyroscope в kubernetes.
 Затем будет запущено тестовое NodeJS приложение со специально написанными медленной функцией и функцией с утечкой памяти.
-Отправка данных делается самим NodeJS приложением в Pyroscope, поэтому Grafana Alloy отключен.
-
-## Быстрый запуск kubernetes в docker-compose
-### Запускаем нагрузку в:
-```shell
-while true; do curl http://localhost:3000/fast; curl http://localhost:3000/slow; curl http://localhost:3000/leak; done
-```
+Отправка данных делается Grafana Alloy приложением c отправкой в Pyroscope
 
 ## Быстрый запуск kubernetes в Yandex Cloud
 ### Устанавливаем kubernetes
@@ -68,21 +62,9 @@ nodejs-app-77f7b96899-hvfrl   32m          1676Mi
 
 ### Скриншоты
 Собственный UI Pyroscope:
-![](https://habrastorage.org/webt/zk/3l/at/zk3latbwghzaxdnuyezha0mx7zc.png)
 
-![](https://habrastorage.org/webt/5r/p0/_w/5rp0_wgdcnili5ytzo-ovv1bib8.png)
 
 Pyroscope через Grafana плагин
-
-![](https://habrastorage.org/webt/jc/dl/jj/jcdljjhrd7qfjxcpmi3vc6jwkns.png)
-
-![](https://habrastorage.org/webt/dc/sz/ir/dcszirjryh_ugttlhdnraq6m7fk.png)
-
-![](https://habrastorage.org/webt/nc/qx/ve/ncqxveh6g1lo6xndhcg_mb46fwy.png)
-
-![](https://habrastorage.org/webt/z3/ou/ud/z3ouudbzmayznipiak-5w7frvjc.png)
-
-![](https://habrastorage.org/webt/3g/fu/87/3gfu87hmdm1h-ckgh6d6tzsellu.png)
 
 
 Что мы можем сказать по поводу NodeJS кода после профилирования с помощью Pyroscope:
