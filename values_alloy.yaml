@@ -1,9 +1,15 @@
 alloy:
   securityContext:
     privileged: true
-    runAsUser: 0
     runAsGroup: 0
-    fsGroup: 0
+    runAsUser: 0
+    capabilities:
+      add:
+        - PERFMON
+        - SYS_PTRACE
+        - SYS_RESOURCE
+        - SYS_ADMIN
+        - SYS_BPF
 
   configMap:
     create: true
