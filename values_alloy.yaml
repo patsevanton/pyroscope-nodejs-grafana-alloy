@@ -37,11 +37,6 @@ alloy:
         forward_to = [pyroscope.write.endpoint.receiver]
         targets = discovery.kubernetes.local_pods.targets
         
-        java {
-          enabled = true
-          include_jvm_unknown = true
-        }
-        
         python {
           enabled = true
           demangle = "simple"
