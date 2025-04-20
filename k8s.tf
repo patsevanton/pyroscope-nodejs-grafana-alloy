@@ -41,7 +41,7 @@ resource "yandex_kubernetes_cluster" "pyroscope" {
   service_account_id      = yandex_iam_service_account.sa-k8s-editor.id
   node_service_account_id = yandex_iam_service_account.sa-k8s-editor.id
 
-  release_channel = "STABLE"  # Канал обновлений
+  release_channel = "REGULAR"  # Канал обновлений
 
   # Зависимость от ожидания применения IAM-ролей
   depends_on = [time_sleep.wait_sa]
