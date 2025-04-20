@@ -46,8 +46,9 @@ helm upgrade -n pyroscope --create-namespace --install pyroscope grafana/pyrosco
 helm upgrade -n grafana --create-namespace --install grafana grafana/grafana -f values_grafana.yaml
 ```
 
-## Запускаем nodejs-app в kubernetes
+## Запускаем python-fast-slow в kubernetes
 ```shell
+kubectl apply -f kubernetes/python-fast-slow.yaml
 kubectl apply -f kubernetes/deployment.yaml
 kubectl apply -f kubernetes/service.yaml
 kubectl apply -f kubernetes/ingress.yaml
