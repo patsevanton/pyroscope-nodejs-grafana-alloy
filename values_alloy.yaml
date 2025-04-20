@@ -36,11 +36,6 @@ alloy:
       pyroscope.ebpf "instance" {
         forward_to = [pyroscope.write.endpoint.receiver]
         targets = discovery.kubernetes.local_pods.targets
-        
-        target {
-          service_name = "ebpf-profiling"
-          environment = "production"
-        }
       }
       
       pyroscope.write "endpoint" {
