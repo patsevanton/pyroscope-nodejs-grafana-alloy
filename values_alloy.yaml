@@ -10,7 +10,6 @@ alloy:
         - SYS_RESOURCE
         - SYS_ADMIN
         - SYS_BPF
-        - NET_ADMIN
 
   configMap:
     create: true
@@ -25,19 +24,14 @@ alloy:
           field = "spec.nodeName=" + env("HOSTNAME")
           role = "pod"
         }
-        selectors {
-          field = "status.phase=Running"
-          label = "app in (java-fast-slow, python-fast-slow, cpu-stress)"
-          role = "pod"
-        }
         role = "pod"
       }
       
       pyroscope.ebpf "instance" {
         forward_to = [pyroscope.write.endpoint.receiver]
         targets = discovery.kubernetes.local_pods.targets
+        python_enabled = true
       }
-      
       pyroscope.write "endpoint" {
         endpoint {
           url = "http://pyroscope.pyroscope:4040"
@@ -46,5 +40,3 @@ alloy:
   controller:
     hostPID: true
     privileged: true
-    hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
