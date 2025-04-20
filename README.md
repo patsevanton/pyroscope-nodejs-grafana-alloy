@@ -28,7 +28,13 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 ```
 
-### Устанавливаем Pyroscope в namespace 'pyroscope' используя Helm chart из репозитория Grafana
+### Устанавливаем Alloy в namespace alloy используя Helm chart из репозитория Grafana
+Передаем кастомные настройки из файла values_alloy.yaml
+```shell
+helm upgrade -n alloy --create-namespace --install alloy grafana/alloy --values values_alloy.yaml
+```
+
+### Устанавливаем Pyroscope в namespace pyroscope используя Helm chart из репозитория Grafana
 Передаем кастомные настройки из файла values_pyroscope.yaml
 ```shell
 helm upgrade -n pyroscope --create-namespace --install pyroscope grafana/pyroscope --values values_pyroscope.yaml
