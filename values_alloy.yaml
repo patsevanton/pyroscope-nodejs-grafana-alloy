@@ -81,4 +81,4 @@ alloy:
       }
   controller:
     hostPID: true
-    privileged: true  # Разрешает доступ к PID namespace хоста
+    privileged: true
