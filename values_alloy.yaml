@@ -1,9 +1,9 @@
 alloy:
   securityContext:
-    privileged: true  # Разрешает привилегированный доступ для Alloy
-    runAsUser: 0      # Запуск от имени root-пользователя
-    runAsGroup: 0     # Группа root
-    fsGroup: 0        # Группа для файловой системы, также root
+    privileged: true
+    runAsUser: 0
+    runAsGroup: 0
+    fsGroup: 0
 
   configMap:
     create: true
