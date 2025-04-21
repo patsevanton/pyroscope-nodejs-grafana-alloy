@@ -45,3 +45,9 @@ After the deployment is operational, the Grafana Alloy will profile the Go and P
 ## Documentation
 
 Refer to the [official documentation](https://grafana.com/docs/alloy/latest/reference/components/pyroscope/pyroscope.ebpf/) for an in-depth understanding and additional configuration options for eBPF profiling with Grafana Alloy.
+
+
+## Get config from confgimap
+```shell
+kubectl get configmap alloy-config -n pyroscope-ebpf -o go-template='{{ index .data "config.alloy" }}'
+```
