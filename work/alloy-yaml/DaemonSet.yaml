@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: grafana-alloy
+  namespace: pyroscope-ebpf
+spec:
+  selector:
+    matchLabels:
+      app: grafana-alloy
+  template:
+    metadata:
+      labels:
+        app: grafana-alloy
+    spec:
+      serviceAccountName: grafana-alloy
+      containers:
+        - name: grafana-alloy
+          image: grafana/alloy:latest
+          command:
+            - /bin/alloy
+            - run
+            - /etc/alloy-config/config.alloy
+            - --server.http.listen-addr=0.0.0.0:12345
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          ports:
+            - containerPort: 12345
+          volumeMounts:
+            - name: alloy-config
+              mountPath: /etc/alloy-config
+          securityContext:
+            privileged: true
+            runAsGroup: 0
+            runAsUser: 0
+      volumes:
+        - name: alloy-config
+          configMap:
+            name: alloy-config
+
+      hostPID: true
+
