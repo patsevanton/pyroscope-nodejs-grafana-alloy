@@ -25,13 +25,20 @@ To use this example:
 2. Clone this repository and navigate to this example's directory.
 3. Deploy the manifests:
     ```shell
-       kubectl apply -f alloy.yaml -f grafana.yaml -f pyroscope.yaml -f python-fast-slow.yaml
+    kubectl apply -f alloy.yaml -f grafana.yaml -f pyroscope.yaml -f python-fast-slow.yaml
     ```
 4. Port-forward the Grafana service to access the Explore Profiles app:
     ```shell
-       kubectl port-forward -n pyroscope-ebpf service/grafana  3000:3000
+    kubectl port-forward -n pyroscope-ebpf service/grafana  3000:3000
     ```
 5. Explore profiles http://localhost:3000/a/grafana-pyroscope-app/profiles-explore
+
+6. Port-forward the Pyroscope service
+    ```shell
+    kubectl port-forward -n pyroscope-ebpf service/pyroscope 4040
+    ```
+
+7. Explore Pyroscope http://localhost:4040
 
 After the deployment is operational, the Grafana Alloy will profile the Go and Python applications using `pyroscope.ebpf` component.
 
